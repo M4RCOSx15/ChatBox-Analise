@@ -294,7 +294,7 @@ Isso instala o `husky` e ativa um hook local que:
 - Bloqueia push direto em `main` ou `develop`.
 - Valida o nome da sua branch antes do push.
 
-Se você pular esse passo, a proteção continua valendo (rulesets do GitHub bloqueiam no servidor), mas você só recebe o erro depois de tentar pushar — pior experiência.
+Se você pular esse passo, a proteção continua valendo (rulesets do GitHub bloqueiam no servidor), mas você só recebe o erro depois de tentar pushar, pior experiência.
 
 ### Fluxo
 
