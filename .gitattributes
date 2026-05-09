@@ -1,0 +1,5 @@
+* text=auto
+
+# Shell scripts e hooks do husky precisam de LF para funcionar em Mac/Linux
+*.sh text eol=lf
+.husky/* text eol=lf

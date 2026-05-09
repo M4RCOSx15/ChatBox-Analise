@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# Bloqueia push direto na main (ruleset do GitHub também bloqueia, mas o hook
+# economiza o vai-e-volta com o servidor).
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "develop" ]; then
+  echo ""
+  echo "❌  Push direto em '$BRANCH' nao e permitido."
+  echo "    Crie uma branch (ex: feat/minha-feature) e abra um Pull Request."
+  echo ""
+  exit 1
+fi
+
+# Valida padrao de naming git-flow / conventional
+PATTERN='^(feat|feature|fix|bugfix|hotfix|refactor|docs|chore|test|style|release)/[a-z0-9._-]+$'
+
+if ! echo "$BRANCH" | grep -Eq "$PATTERN"; then
+  echo ""
+  echo "❌  Nome da branch '$BRANCH' nao segue o padrao."
+  echo ""
+  echo "    Use: tipo/descricao-em-kebab-case"
+  echo ""
+  echo "    Tipos aceitos:"
+  echo "      feat | feature      nova feature"
+  echo "      fix  | bugfix       correcao de bug"
+  echo "      hotfix              fix urgente"
+  echo "      refactor            refatoracao"
+  echo "      docs                documentacao"
+  echo "      chore               manutencao"
+  echo "      test                testes"
+  echo "      style               ajustes visuais"
+  echo "      release             release"
+  echo ""
+  echo "    Exemplos:  feat/login-google   fix/correcao-rotas   refactor/tela-login"
+  echo ""
+  echo "    Para renomear:  git branch -m <novo-nome>"
+  echo ""
+  exit 1
+fi
+
+echo "✓ Branch '$BRANCH' OK"
