@@ -27,7 +27,7 @@ export class Login implements OnDestroy {
     private router: Router,
     private authService: AuthService,
     private errorHandler: ErrorHandlerService,
-    private logger: LoggerService
+    private logger: LoggerService,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, CustomValidators.emailOuCnpj]],

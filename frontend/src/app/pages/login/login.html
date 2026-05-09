@@ -1,72 +1,170 @@
 <form class="login-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <!-- LEFT SIDE -->
   <div class="brand-section">
-    <div class="brand-logo">O</div>
-    <h2 class="brand-title">ORIENTO</h2>
+    <!-- BLURS -->
+    <div class="blur blur-gold"></div>
+    <div class="blur blur-blue"></div>
+
+    <!-- CONTENT -->
+    <div class="brand-content">
+      <!-- LOGO -->
+      <div class="brand-header">
+        <div class="brand-logo">
+          <span>O</span>
+        </div>
+
+        <h2 class="brand-title">ORIENTO</h2>
+      </div>
+
+      <!-- HERO -->
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Acesse sua <br />
+          jornada de <br />
+          sabedoria <br />
+          financeira.
+        </h1>
+
+        <p class="hero-description">
+          Retorne à sua plataforma de inteligência financeira e continue construindo seu legado.
+        </p>
+      </div>
+    </div>
+
+    <!-- TESTIMONIAL -->
+    <div class="testimonial-wrapper">
+      <div class="testimonial-card">
+        <p class="testimonial-text">
+          "Desde que começamos a usar o Oriento, nosso atendimento se tornou muito mais rápido,
+          inteligente e eficiente. O chatbot entrega orientações financeiras precisas em segundos, e
+          nossos usuários realmente gostam da experiência. É como ter um assistente financeiro
+          premium disponível 24 horas por dia."
+        </p>
+
+        <div class="testimonial-user">
+          <img src="/profile/lucelho-testimonial.jpeg" alt="Usuário" />
+
+          <div class="testimonial-info">
+            <strong>Lucelho Silva</strong>
+
+            <span>CEO Elkys</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="form-section flex-1 bg-cover max-[1100px]:hidden">
-    <div class="auth-header">
-      <h1 class="auth-title">Bem-vindo</h1>
-      <p class="auth-subtitle">Acesse sua conta para continuar</p>
-    </div>
+  <!-- RIGHT SIDE -->
+  <div class="form-section">
+    <div class="form-wrapper">
+      <!-- HEADER -->
+      <div class="auth-header">
+        <h1 class="auth-title">Acessar conta</h1>
 
-    <div id="loginForm">
-      <div class="form-group">
-        <label for="email" class="form-label">E-mail ou CNPJ</label>
-        <div class="input-icon">
-          <i class="ph ph-user"></i>
-          <input
-            type="text"
-            id="email"
-            formControlName="email"
-            class="form-input"
-            placeholder="Seu e-mail ou CNPJ"
-          />
-        </div>
-
-        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-        <div class="error-message d-flex align-items-center">
-          <i class="ph ph-warning-circle"></i>
-          <p class="m-0">{{ getEmailErrorMessage() }}</p>
-        </div>
-        }
+        <p class="auth-subtitle">Insira suas credenciais para continuar sua jornada.</p>
       </div>
 
-      <div class="form-group">
-        <label for="senha" class="form-label">Senha</label>
-        <div class="input-icon">
-          <i class="ph ph-lock"></i>
-          <input
-            type="password"
-            id="senha"
-            formControlName="senha"
-            class="form-input"
-            placeholder="Sua senha"
-          />
+      <!-- FORM -->
+      <div id="loginForm">
+        <!-- EMAIL -->
+        <div class="form-group">
+          <label for="email" class="form-label">ENDEREÇO DE E-MAIL OU CNPJ</label>
+
+          <div class="input-icon">
+            <input
+              type="text"
+              id="email"
+              formControlName="email"
+              class="form-input"
+              placeholder="name@empresa.com ou 00.000.000/0000-00"
+            />
+
+            <img src="/login/icon-email.svg" alt="Email" class="input-custom-icon" />
+          </div>
+
+          @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+            <div class="error-message">
+              <i class="ph ph-warning-circle"></i>
+
+              <p>{{ getEmailErrorMessage() }}</p>
+            </div>
+          }
         </div>
 
-        @if (loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched) {
-        <div class="error-message d-flex align-items-center">
-          <i class="ph ph-warning-circle"></i>
-          <p class="m-0">{{ getSenhaErrorMessage() }}</p>
+        <!-- SENHA -->
+        <div class="form-group">
+          <label for="senha" class="form-label">SENHA</label>
+
+          <div class="input-icon">
+            <input
+              type="password"
+              id="senha"
+              formControlName="senha"
+              class="form-input"
+              placeholder="Digite sua senha"
+            />
+
+            <img src="/login/icon-password.svg" alt="Senha" class="input-custom-icon" />
+          </div>
+
+          <div class="password-footer">
+            @if (loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched) {
+              <div class="error-message">
+                <i class="ph ph-warning-circle"></i>
+
+                <p>{{ getSenhaErrorMessage() }}</p>
+              </div>
+            }
+
+            <a class="forgot-password">Esqueceu a senha?</a>
+          </div>
         </div>
+
+        <!-- CHECKBOX -->
+        <div class="remember-wrapper">
+          <input type="checkbox" id="remember" />
+
+          <label for="remember">Mantenha-me conectado</label>
+        </div>
+
+        <!-- ACTION ROW -->
+        <div class="action-row">
+          <div class="button-wrapper">
+            <app-primary-button
+              textoBotao="Entrar"
+              [disabled]="loading || loginForm.invalid"
+              (clicked)="onSubmit()"
+            >
+            </app-primary-button>
+          </div>
+
+          <p class="auth-footer">
+            Não tem uma conta?
+
+            <a (click)="goToRegister()" class="link"> Cadastre-se </a>
+          </p>
+        </div>
+
+        @if (errorMessage) {
+          <p class="error-text">
+            {{ errorMessage }}
+          </p>
         }
+
+        <!-- DIVIDER -->
+        <div class="divider">
+          <div class="divider-line"></div>
+
+          <span>OU CONTINUE COM</span>
+        </div>
+
+        <!-- GOOGLE -->
+        <button type="button" class="google-button">
+          <img src="/login/google-color.svg" alt="Google" />
+
+          <span>Faça login com o Google</span>
+        </button>
       </div>
-
-      <app-primary-button
-        textoBotao="Entrar"
-        [disabled]="loading || loginForm.invalid"
-        (clicked)="onSubmit()"
-      ></app-primary-button>
-
-      @if (errorMessage) {
-      <p class="error-text text-center mt-3">{{ errorMessage }}</p>
-      }
     </div>
-
-    <p class="auth-footer">
-      Não tem conta?
-      <a (click)="goToRegister()" class="link">Cadastre-se</a>
-    </p>
   </div>
 </form>
