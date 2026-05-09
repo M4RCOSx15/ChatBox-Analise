@@ -281,13 +281,47 @@ Os arquivos otimizados serão gerados em `frontend/dist/`
 
 ## Contribuindo
 
-Contribuições são bem-vindas! Siga os passos:
+### Setup inicial dos git hooks
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/NovaFuncionalidade`)
-3. Commit suas mudanças (`git commit -m 'feat: adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/NovaFuncionalidade`)
-5. Abra um Pull Request
+Após clonar o repositório, rode **uma única vez** na raiz do projeto:
+
+```bash
+npm install
+```
+
+Isso instala o `husky` e ativa um hook local que:
+
+- Bloqueia push direto em `main` ou `develop`.
+- Valida o nome da sua branch antes do push.
+
+Se você pular esse passo, a proteção continua valendo (rulesets do GitHub bloqueiam no servidor), mas você só recebe o erro depois de tentar pushar, pior experiência.
+
+### Fluxo
+
+1. Crie uma branch a partir da `main` seguindo o padrão de naming abaixo.
+2. Faça seus commits seguindo Conventional Commits.
+3. Abra um Pull Request para `main`.
+4. O PR precisa de **1 aprovação** e todos os comentários de review **resolvidos** antes do merge.
+
+### Padrão de nomes de branch
+
+Formato: `tipo/descricao-em-kebab-case`
+
+| Tipo | Quando usar |
+|---|---|
+| `feat` ou `feature` | Nova funcionalidade |
+| `fix` ou `bugfix` | Correção de bug |
+| `hotfix` | Fix urgente em produção |
+| `refactor` | Refatoração sem mudar comportamento |
+| `docs` | Documentação |
+| `chore` | Manutenção, configuração, tooling |
+| `test` | Adicionar/ajustar testes |
+| `style` | Ajustes visuais / formatação |
+| `release` | Branch de release |
+
+**Exemplos válidos:** `feat/login-google`, `fix/correcao-rotas`, `refactor/tela-login`, `docs/atualiza-readme`.
+
+**Exemplos inválidos:** `feature/NovaFuncionalidade` (camelCase), `minha-branch` (sem tipo), `feat/Login Social` (espaço).
 
 ### Padrão de Commits
 
