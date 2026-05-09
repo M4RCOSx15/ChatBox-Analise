@@ -334,6 +334,10 @@
   font-size: 12px;
 }
 
+.form-group:has(.error-message) > label {
+  color: var(--error);
+}
+
 .forgot-password {
   color: var(--dark-blue);
   font-size: 12px;

@@ -42,12 +42,12 @@
         </p>
 
         <div class="testimonial-user">
-          <img src="https://placehold.co/40x40" alt="Usuário" />
+          <img src="/profile/lucelho-testimonial.jpeg" alt="Usuário" />
 
           <div class="testimonial-info">
-            <strong>Empresário Satisfeito</strong>
+            <strong>Lucelho Silva</strong>
 
-            <span>Empresário | Diretor de Estratégia de Capital</span>
+            <span>CEO Elkys</span>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@
       <div id="loginForm">
         <!-- EMAIL -->
         <div class="form-group">
-          <label for="email" class="form-label"> ENDEREÇO DE E-MAIL </label>
+          <label for="email" class="form-label">ENDEREÇO DE E-MAIL OU CNPJ</label>
 
           <div class="input-icon">
             <input
@@ -76,10 +76,10 @@
               id="email"
               formControlName="email"
               class="form-input"
-              placeholder="name@company.com"
+              placeholder="name@empresa.com ou 00.000.000/0000-00"
             />
 
-            <img src="login/icon-email.svg" alt="Email" class="input-custom-icon" />
+            <img src="/login/icon-email.svg" alt="Email" class="input-custom-icon" />
           </div>
 
           @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
@@ -93,7 +93,7 @@
 
         <!-- SENHA -->
         <div class="form-group">
-          <label for="senha" class="form-label"> SENHA </label>
+          <label for="senha" class="form-label">SENHA</label>
 
           <div class="input-icon">
             <input
@@ -104,7 +104,7 @@
               placeholder="Digite sua senha"
             />
 
-            <img src="login/icon-password.svg" alt="Senha" class="input-custom-icon" />
+            <img src="/login/icon-password.svg" alt="Senha" class="input-custom-icon" />
           </div>
 
           <div class="password-footer">
@@ -116,7 +116,7 @@
               </div>
             }
 
-            <a class="forgot-password"> Esqueceu a senha? </a>
+            <a class="forgot-password">Esqueceu a senha?</a>
           </div>
         </div>
 
@@ -124,7 +124,7 @@
         <div class="remember-wrapper">
           <input type="checkbox" id="remember" />
 
-          <label for="remember"> Mantenha-me conectado </label>
+          <label for="remember">Mantenha-me conectado</label>
         </div>
 
         <!-- ACTION ROW -->
@@ -160,7 +160,7 @@
 
         <!-- GOOGLE -->
         <button type="button" class="google-button">
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" />
+          <img src="/login/google-color.svg" alt="Google" />
 
           <span>Faça login com o Google</span>
         </button>
