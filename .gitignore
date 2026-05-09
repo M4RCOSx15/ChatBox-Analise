@@ -46,6 +46,9 @@ frontend/coverage/
 frontend/.npm/
 frontend/.pnpm-store/
 
+# Tooling root (husky)
+/node_modules/
+
 # Database
 *.db
 *.sqlite
