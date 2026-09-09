@@ -1,0 +1,15 @@
+{
+  "name": "oriento-chatbox-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tooling do monorepo Oriento (git hooks). Backend em frontend/ e backend/ permanecem independentes.",
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  },
+  "dependencies": {
+    "pg": "^8.21.0"
+  }
+}

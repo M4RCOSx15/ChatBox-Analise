@@ -1,0 +1,17 @@
+services:
+  mysql:
+    container_name: 'guide-mysql'
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=oriento'
+      - 'MYSQL_PASSWORD=250469@Lo12#'
+      - 'MYSQL_ROOT_PASSWORD=250469@Lo12#'
+      - 'MYSQL_USER=orientodb'
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mysql_data:

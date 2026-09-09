@@ -1,0 +1,86 @@
+#!/usr/bin/env sh
+
+# Hook pre-push que valida cada ref sendo enviada ao remoto.
+# Le linhas do stdin no formato: <local_ref> <local_sha> <remote_ref> <remote_sha>
+#
+# Regras:
+#   - Tags sao sempre permitidas.
+#   - Deletes (local_sha zerado) sao sempre permitidos.
+#   - Criacao inicial de branch (remote_sha zerado) e permitida para qualquer
+#     nome que siga o padrao git-flow, e para 'main' e 'develop'.
+#   - Atualizacao (commits novos) em main ou develop e bloqueada: ir via PR.
+#   - Para outras branches, o nome precisa seguir o padrao tipo/descricao.
+
+ZERO_SHA="0000000000000000000000000000000000000000"
+PATTERN='^(feat|feature|fix|bugfix|hotfix|refactor|docs|chore|test|style|release)/[a-z0-9._-]+$'
+
+ok=1
+
+print_naming_error() {
+  echo ""
+  echo "❌  Nome da branch '$1' nao segue o padrao."
+  echo ""
+  echo "    Use: tipo/descricao-em-kebab-case"
+  echo ""
+  echo "    Tipos aceitos:"
+  echo "      feat | feature      nova feature"
+  echo "      fix  | bugfix       correcao de bug"
+  echo "      hotfix              fix urgente"
+  echo "      refactor            refatoracao"
+  echo "      docs                documentacao"
+  echo "      chore               manutencao"
+  echo "      test                testes"
+  echo "      style               ajustes visuais"
+  echo "      release             release"
+  echo ""
+  echo "    Exemplos:  feat/login-google   fix/correcao-rotas   refactor/tela-login"
+  echo ""
+  echo "    Para renomear:  git branch -m <novo-nome>"
+  echo ""
+}
+
+while read local_ref local_sha remote_ref remote_sha; do
+  # Tags sao permitidas
+  case "$remote_ref" in
+    refs/tags/*) continue ;;
+  esac
+
+  # Delete (local_sha zerado) e sempre permitido
+  if [ "$local_sha" = "$ZERO_SHA" ]; then
+    continue
+  fi
+
+  branch_name="${remote_ref#refs/heads/}"
+
+  # Atualizacao em main ou develop e bloqueada (deve ir via PR)
+  if [ "$remote_sha" != "$ZERO_SHA" ]; then
+    if [ "$branch_name" = "main" ] || [ "$branch_name" = "develop" ]; then
+      echo ""
+      echo "❌  Push direto em '$branch_name' nao e permitido."
+      echo "    Abra um Pull Request com sua branch de feature."
+      echo ""
+      ok=0
+      continue
+    fi
+  fi
+
+  # Criacao inicial de main ou develop e permitida (bootstrap do git-flow)
+  if [ "$branch_name" = "main" ] || [ "$branch_name" = "develop" ]; then
+    continue
+  fi
+
+  # Demais branches precisam seguir o padrao git-flow
+  if ! echo "$branch_name" | grep -Eq "$PATTERN"; then
+    print_naming_error "$branch_name"
+    ok=0
+    continue
+  fi
+
+  echo "✓ Branch '$branch_name' OK"
+done
+
+if [ "$ok" = "0" ]; then
+  exit 1
+fi
+
+exit 0
